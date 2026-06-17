@@ -1,10 +1,10 @@
 name: huluxia_signin
-# 新增权限配置，允许提交修改代码
+# 新增写入权限，修复git push 403报错
 permissions:
   contents: write
 on:
-  schedule:    # 定时触发
-    - cron: '0 18 * * *'  # UTC18点=北京时间次日2点
+  schedule:    # UTC18点 = 北京时间凌晨2点签到
+    - cron: '0 18 * * *'
   workflow_dispatch:  # 支持手动触发
 jobs:
   build:
@@ -23,9 +23,10 @@ jobs:
       - name: '开始运行'
         id: signin-outputs
         env:
-          # 不需要的推送形式可以直接注释，反之你需要取消注释            
           NOTIFIER_TYPE: ${{ secrets.NOTIFIER_TYPE }} 
-          # EMAIL_CONFIG: ${{ secrets.EMAIL_CONFIG }}
+          # 取消邮箱注释，启用邮件推送
+          EMAIL_CONFIG: ${{ secrets.EMAIL_CONFIG }}
+          # 不用企业微信，注释掉
           # WECHAT_ROBOT_URL: ${{ secrets.WECHAT_ROBOT_URL }}
           ACCOUNTS: ${{ secrets.ACCOUNTS }}
         run: |
