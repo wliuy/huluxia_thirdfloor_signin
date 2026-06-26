@@ -4,7 +4,7 @@ permissions:
   contents: write
 on:
   schedule:    # UTC18点 = 北京时间凌晨2点签到
-    - cron: '0 18 * * *'
+    - cron: '0 23 * * *'
   workflow_dispatch:  # 支持手动触发
 jobs:
   build:
